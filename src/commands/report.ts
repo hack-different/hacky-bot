@@ -12,6 +12,8 @@ abstract class ReportCommand {
 
         let channel = await client.channels.fetch(MOD_LOG_CHANNEL) as TextChannel;
 
-        await channel.send(`User @${interaction.user.id} reported content by user @${uid}`)
+        await channel.send(`User <@!${interaction.user.id}> reported content by user ${uid}`)
+
+        await interaction.reply("Awesome, I've passed that along to the mod squad.")
     }
 }
