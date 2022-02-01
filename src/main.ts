@@ -17,7 +17,6 @@ export const client = new Client({
         Intents.FLAGS.GUILD_MEMBERS,
         Intents.FLAGS.GUILD_MESSAGES,
         Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
-        Intents.FLAGS.GUILD_VOICE_STATES,
     ],
     // If you only want to use global commands only, comment this line
     botGuilds: [(client) => client.guilds.cache.map((guild) => guild.id)],
@@ -63,10 +62,10 @@ async function run() {
     );
 
     // let's start the bot
-    if (!process.env.BOT_TOKEN) {
+    if (!process.env.DISCORD_BOT_TOKEN) {
         throw Error("Could not find BOT_TOKEN in your environment");
     }
-    await client.login(process.env.BOT_TOKEN); // provide your bot token
+    await client.login(process.env.DISCORD_BOT_TOKEN); // provide your bot token
 
     // ************* rest api section: start **********
 
