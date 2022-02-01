@@ -16,7 +16,11 @@ export default class DiscourseConfiguration {
     }
 
     static async get() : Promise<DiscourseConfiguration> {
-        const result = await fetch(process.env.CONFIGURATION_URL)
+        if (typeof process.env.CONFIGURATION_URL !== 'string') {
+            throw "No configuration url, would be useless"
+        }
+
+        const result = await fetch(new Request(process.env.CONFIGURATION_URL))
         if (result.ok) {
             const data = await result.json() as Configuration
             return new DiscourseConfiguration(data)
