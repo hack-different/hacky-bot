@@ -8,7 +8,7 @@
     "build": "tsc",
     "build:changelog": "npx @discordx/changelog --root=src",
     "dev": "node --loader ts-node/esm/transpile-only src/main.ts",
-    "start": "nodemon --exec node --loader ts-node/esm/transpile-only src/main.ts",
+    "start": "node dist/main.js",
     "serve": "node build/main.js"
   },
   "repository": "https://github.com/hack-different/hacky-bot",
