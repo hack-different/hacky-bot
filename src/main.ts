@@ -65,7 +65,7 @@ async function run() {
 
     // let's start the bot
     if (!process.env.DISCORD_BOT_TOKEN) {
-        throw Error("Could not find BOT_TOKEN in your environment");
+        throw Error("Could not find DISCORD_BOT_TOKEN in your environment");
     }
     await client.login(process.env.DISCORD_BOT_TOKEN); // provide your bot token
 

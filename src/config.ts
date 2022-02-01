@@ -1,4 +1,4 @@
-
+import fetch from "node-fetch";
 
 interface Configuration {
     embargoes: string[]
@@ -20,7 +20,7 @@ export default class DiscourseConfiguration {
             throw "No configuration url, would be useless"
         }
 
-        const result = await fetch(new Request(process.env.CONFIGURATION_URL))
+        const result = await fetch(process.env.CONFIGURATION_URL)
         if (result.ok) {
             const data = await result.json() as Configuration
             return new DiscourseConfiguration(data)
