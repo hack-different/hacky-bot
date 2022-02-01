@@ -4,7 +4,9 @@ import { Client } from "discordx";
 import { dirname, importx } from "@discordx/importer";
 import { Koa } from "@discordx/koa";
 import * as assert from "assert";
-import DiscourseConfiguration from './config';
+
+import DiscourseConfiguration from './config.js';
+
 
 DiscourseConfiguration.setRefresh(60);
 

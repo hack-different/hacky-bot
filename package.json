@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "description": "Welcome to you're 'jarvis' of the hack-different world",
   "type": "module",
-  "main": "build/main.js",
+  "main": "dist/main.js",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsc",
     "build:changelog": "npx @discordx/changelog --root=src",
