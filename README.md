@@ -3,7 +3,7 @@
 This is our helpful if snarky bot...
 
 This will help you get started:
-https://owencalvin.github.io/discord.ts/
+https://github.com/oceanroleplay/discord.ts
 
 ## Features (Planned)
 
