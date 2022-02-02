@@ -1,6 +1,9 @@
 # hacky-bot
 
-This is our helpful if snarky bot
+This is our helpful if snarky bot...
+
+This will help you get started:
+https://owencalvin.github.io/discord.ts/
 
 ## Features (Planned)
 
@@ -18,7 +21,7 @@ Auto handling "#Legit" by ensuring a verified GitHub / Twitter, and allowing a u
 
 This would also keep discord roles in sync with GitHub team memberships 
 
-### Report
+### Report (Partially Implemented)
 
 This is a command to allow a user to ping for mod attention
 
