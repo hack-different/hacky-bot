@@ -7,7 +7,6 @@ import * as assert from "assert";
 
 import DiscourseConfiguration from './config.js';
 
-
 DiscourseConfiguration.setRefresh(60);
 
 export const client = new Client({
@@ -51,14 +50,11 @@ client.on("interactionCreate", (interaction: Interaction) => {
     client.executeInteraction(interaction);
 });
 
-client.on("messageCreate", (message: Message) => {
-    client.executeCommand(message);
+client.on("messageCreate", async (message: Message) => {
+    await client.executeCommand(message);
 });
 
 async function run() {
-    // with cjs
-    // await importx(__dirname + "/{events,commands}/**/*.{ts,js}");
-    // with ems
     await importx(
         dirname(import.meta.url) + "/{events,commands,api}/**/*.{ts,js}"
     );
@@ -71,7 +67,7 @@ async function run() {
 
     // ************* rest api section: start **********
 
-    // api: preare server
+    // api: prepare server
     const server = new Koa();
 
     // api: need to build the api server first
@@ -87,4 +83,4 @@ async function run() {
     // ************* rest api section: end **********
 }
 
-run();
+run().then(() => console.log('Running'));
