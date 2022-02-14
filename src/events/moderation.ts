@@ -3,12 +3,16 @@ import {GuildMember, PartialGuildMember, TextChannel} from "discord.js";
 
 const MOD_LOG_CHANNEL = "928760909583749130"
 
+const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
 @Discord()
 class ModerationFilter {
     @On("guildMemberUpdate")
     private async userUpdated([oldMember, newMember] : ArgsOf<"guildMemberUpdate">, client: Client) {
         if (newMember.isCommunicationDisabled()) {
             let channel = await client.channels.fetch(MOD_LOG_CHANNEL) as TextChannel;
+
+            await delay(5000)
 
             const fetchedLogs = await newMember.guild.fetchAuditLogs({
                 limit: 1,
@@ -27,7 +31,7 @@ class ModerationFilter {
             // Update the output with a bit more information
             // Also run a check to make sure that the log returned was for the same author's message
             if (target?.id === newMember.user.id) {
-                await channel.send(`User ${newMember.user.tag} was timed out by <!@${executor?.id}> who said: '${memberUpdateLog.reason}'`);
+                await channel.send(`User ${newMember.user.tag} was timed out by <@!${executor?.id}> who said: '${memberUpdateLog.reason}'`);
             } else {
                 await channel.send(`User ${newMember.user.tag} was timed out, but we don't know by who.`);
             }
@@ -37,6 +41,8 @@ class ModerationFilter {
     @On("guildMemberRemove")
     private async userRemoved([member] : ArgsOf<"guildMemberRemove">, client: Client) {
         let channel = await client.channels.fetch(MOD_LOG_CHANNEL) as TextChannel;
+
+        await delay(5000)
 
         const fetchedLogs = await member.guild.fetchAuditLogs({
             limit: 1,
@@ -55,7 +61,7 @@ class ModerationFilter {
         // Update the output with a bit more information
         // Also run a check to make sure that the log returned was for the same kicked member
         if (target?.id === member.id) {
-            await channel.send(`${member.user.tag} kicked by <!@${executor?.id}>, who said '${kickLog.reason}'`);
+            await channel.send(`${member.user.tag} kicked by <@!${executor?.id}>, who said '${kickLog.reason}'`);
         } else {
             await channel.send(`${member.user.tag} left the guild, audit log fetch was inconclusive.`);
         }
@@ -64,6 +70,8 @@ class ModerationFilter {
     @On("guildBanAdd")
     private async banAdd([ban]: ArgsOf<"guildBanAdd">, client: Client) {
         let channel = await client.channels.fetch(MOD_LOG_CHANNEL) as TextChannel;
+
+        await delay(5000)
 
         const fetchedLogs = await ban.guild.fetchAuditLogs({
             limit: 1,
@@ -85,7 +93,7 @@ class ModerationFilter {
         // Update the output with a bit more information
         // Also run a check to make sure that the log returned was for the same banned member
         if (target?.id === ban.user.id) {
-            await channel.send(`${ban.user.tag} got hit with the swift hammer of justice, wielded by the mighty <!@${executor?.id}> heard saying: '${ban.reason}'`);
+            await channel.send(`${ban.user.tag} got hit with the swift hammer of justice, wielded by the mighty <@!${executor?.id}> heard saying: '${ban.reason}'`);
         } else {
             await channel.send(`${ban.user.tag} got hit with the swift hammer of justice, audit log fetch was inconclusive.`);
         }
