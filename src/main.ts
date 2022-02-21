@@ -3,9 +3,9 @@ import { Intents, Interaction, Message } from "discord.js";
 import { Client } from "discordx";
 import { dirname, importx } from "@discordx/importer";
 import { Koa } from "@discordx/koa";
-import * as assert from "assert";
 
 import DiscourseConfiguration from './config.js';
+import { HACK_DIFFERENT_SERVER_ID } from './config.js'
 
 DiscourseConfiguration.setRefresh(60);
 
@@ -20,7 +20,7 @@ export const client = new Client({
         Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
     ],
     // If you only want to use global commands only, comment this line
-    botGuilds: [ "779134930265309195" ],
+    botGuilds: [ HACK_DIFFERENT_SERVER_ID ],
 });
 
 client.once("ready", async () => {
