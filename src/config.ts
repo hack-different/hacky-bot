@@ -4,6 +4,8 @@ interface Configuration {
     embargoes: string[]
 }
 
+export HACK_DIFFERENT_SERVER_ID="779134930265309195";
+
 export default class DiscourseConfiguration {
     private readonly _embargoes : RegExp[]
 
