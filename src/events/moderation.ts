@@ -79,11 +79,13 @@ class ModerationFilter {
         });
         // Since there's only 1 audit log entry in this collection, grab the first one
         const banLog = fetchedLogs.entries.first();
+        
+        await channel.send(`BAN DEBUG: ban = ${ban}, banLog = ${banLog}, ban.user = ${ban.user}`);
 
         // Perform a coherence check to make sure that there's *something*
         if (!banLog) {
             await channel.send(`${ban.user.tag} was banned but no audit log could be found. Reason: ${ban.reason}`);
-            return
+            return;
         }
 
         // Now grab the user object of the person who banned the member
