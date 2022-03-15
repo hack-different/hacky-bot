@@ -44,62 +44,19 @@ class ModerationFilter {
 
         await delay(5000)
 
-        const fetchedLogs = await member.guild.fetchAuditLogs({
+        const fetchedUserLogs = await member.guild.fetchAuditLogs({
             limit: 1,
-            type: 'MEMBER_KICK',
+            user: member.user,
         });
         // Since there's only 1 audit log entry in this collection, grab the first one
-        const kickLog = fetchedLogs.entries.first();
+        const moderationLog = fetchedUserLogs.entries.first();
 
-        // Perform a coherence check to make sure that there's *something*
-        if (!kickLog) return console.log(`${member.user.tag} left the guild, most likely of their own will.`);
-
-        // Now grab the user object of the person who kicked the member
-        // Also grab the target of this action to double-check things
-        const { executor, target } = kickLog;
-
-        // Update the output with a bit more information
-        // Also run a check to make sure that the log returned was for the same kicked member
-        if (target?.id === member.id) {
-            await channel.send(`${member.user.tag} kicked by <@!${executor?.id}>, who said '${kickLog.reason}'`);
-        } else {
-            await channel.send(`${member.user.tag} left the guild, audit log fetch was inconclusive.`);
-            await channel.send(`DEBUG: kickLog = ${JSON.stringify(kickLog)}`)
-            await channel.send(`DEBUG: member = ${JSON.stringify(member)}`)
+        if (moderationLog) {
+            await channel.send(`${moderationLog?.target} was ${moderationLog?.actionType} by ${moderationLog?.executor} for reason ${moderationLog.reason}`);
         }
-    }
-
-    @On("guildBanAdd")
-    private async banAdd([ban]: ArgsOf<"guildBanAdd">, client: Client) {
-        let channel = await client.channels.fetch(MOD_LOG_CHANNEL) as TextChannel;
-
-        await delay(5000)
-
-        const fetchedLogs = await ban.guild.fetchAuditLogs({
-            limit: 1,
-            type: 'MEMBER_BAN_ADD',
-        });
-        // Since there's only 1 audit log entry in this collection, grab the first one
-        const banLog = fetchedLogs.entries.first();
-        
-        await channel.send(`BAN DEBUG: ban = ${ban}, banLog = ${banLog}, ban.user = ${ban.user}`);
-
-        // Perform a coherence check to make sure that there's *something*
-        if (!banLog) {
-            await channel.send(`${ban.user.tag} was banned but no audit log could be found. Reason: ${ban.reason}`);
-            return;
-        }
-
-        // Now grab the user object of the person who banned the member
-        // Also grab the target of this action to double-check things
-        const { executor, target } = banLog;
-
-        // Update the output with a bit more information
-        // Also run a check to make sure that the log returned was for the same banned member
-        if (target?.id === ban.user.id) {
-            await channel.send(`${ban.user.tag} got hit with the swift hammer of justice, wielded by the mighty <@!${executor?.id}> heard saying: '${ban.reason}'`);
-        } else {
-            await channel.send(`${ban.user.tag} got hit with the swift hammer of justice, audit log fetch was inconclusive.`);
+        else {
+            // Perform a coherence check to make sure that there's *something*
+            if (!moderationLog) return console.log(`${member.user.tag} left the guild, most likely of their own will.`);
         }
     }
 }
