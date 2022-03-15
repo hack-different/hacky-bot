@@ -64,6 +64,8 @@ class ModerationFilter {
             await channel.send(`${member.user.tag} kicked by <@!${executor?.id}>, who said '${kickLog.reason}'`);
         } else {
             await channel.send(`${member.user.tag} left the guild, audit log fetch was inconclusive.`);
+            await channel.send(`DEBUG: kickLog = ${JSON.stringify(kickLog)}`)
+            await channel.send(`DEBUG: member = ${JSON.stringify(member)}`)
         }
     }
 
