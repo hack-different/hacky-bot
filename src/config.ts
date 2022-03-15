@@ -18,7 +18,7 @@ export default class DiscourseConfiguration {
     }
 
     static async get() : Promise<DiscourseConfiguration> {
-        if (typeof process.env.CONFIGURATION_URL !== 'string') {
+        if (typeof process.env.CONFIGURATION_URL === 'undefined') {
             throw "No configuration url, would be useless"
         }
 
@@ -31,7 +31,7 @@ export default class DiscourseConfiguration {
     }
 
     static refresh() {
-        this.get().finally()
+        DiscourseConfiguration.get().finally()
     }
 
     static setRefresh(minutes: number) {
