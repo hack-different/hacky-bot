@@ -6,6 +6,7 @@ import { Koa } from "@discordx/koa";
 
 import DiscourseConfiguration from './config.js';
 import { HACK_DIFFERENT_SERVER_ID } from './config.js'
+import Store from "./store";
 
 DiscourseConfiguration.setRefresh(60);
 
@@ -24,6 +25,9 @@ export const client = new Client({
 });
 
 client.once("ready", async () => {
+    let store = new Store()
+
+    await store.migrate()
 
     // make sure all guilds are in cache
     await client.guilds.fetch();
@@ -56,7 +60,7 @@ client.on("messageCreate", async (message: Message) => {
 
 async function run() {
     await importx(
-        dirname(import.meta.url) + "/{events,commands,api}/**/*.{ts,js}"
+        dirname(__filename) + "/{events,commands,api}/**/*.{ts,js}"
     );
 
     // let's start the bot

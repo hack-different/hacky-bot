@@ -47,6 +47,7 @@ class ModerationFilter {
         const fetchedUserLogs = await member.guild.fetchAuditLogs({
             limit: 1,
             user: member.user,
+
         });
         // Since there's only 1 audit log entry in this collection, grab the first one
         const moderationLog = fetchedUserLogs.entries.first();

@@ -1,0 +1,16 @@
+{
+  "development": {
+    "username": "hacky",
+    "password": "hacky",
+    "database": "hacky-development",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "hacky",
+    "password": "hacky",
+    "database": "hacky-test",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  }
+}
