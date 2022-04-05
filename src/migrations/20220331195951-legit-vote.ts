@@ -1,7 +1,7 @@
 import type Sequelize from "sequelize";
 
 export async function up(qi: Sequelize.QueryInterface, s: typeof Sequelize) : Promise<void> {
-  await qi.createTable('deleted_messages', {
+  await qi.createTable('legit_votes', {
     id: {
       type: s.DataTypes.UUID,
       primaryKey: true,
@@ -12,15 +12,7 @@ export async function up(qi: Sequelize.QueryInterface, s: typeof Sequelize) : Pr
       type: s.DataTypes.TIME,
       allowNull: false
     },
-    updatedAt: {
-      type: s.DataTypes.TIME,
-      allowNull: false
-    },
-    sentAt: {
-      type: s.DataTypes.TIME,
-      allowNull: false
-    },
-    sender: {
+    subjectId: {
       type: s.DataTypes.UUID,
       allowNull: false,
       references: {
@@ -28,7 +20,7 @@ export async function up(qi: Sequelize.QueryInterface, s: typeof Sequelize) : Pr
         key: 'id'
       }
     },
-    deleter: {
+    voterId: {
       type: s.DataTypes.UUID,
       allowNull: false,
       references: {
@@ -36,17 +28,14 @@ export async function up(qi: Sequelize.QueryInterface, s: typeof Sequelize) : Pr
         key: 'id'
       }
     },
-    channelId: {
-      type: s.DataTypes.BIGINT,
-      allowNull: false
-    },
-    message: {
-      type: s.DataTypes.TEXT,
-      allowNull: false
+    affirm: {
+      type: s.DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false
     }
   })
 }
 
 export async function down(qi: Sequelize.QueryInterface, s: typeof Sequelize) : Promise<void> {
-  await qi.dropTable('deleted_messages')
+  await qi.dropTable('saved_item')
 }

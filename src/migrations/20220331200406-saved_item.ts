@@ -1,7 +1,7 @@
 import type Sequelize from "sequelize";
 
 export async function up(qi: Sequelize.QueryInterface, s: typeof Sequelize) : Promise<void> {
-  await qi.createTable('saved_item', {
+  await qi.createTable('saved_items', {
     id: {
       type: s.DataTypes.UUID,
       primaryKey: true,
@@ -12,7 +12,7 @@ export async function up(qi: Sequelize.QueryInterface, s: typeof Sequelize) : Pr
       type: s.DataTypes.TIME,
       allowNull: false
     },
-    sender: {
+    senderId: {
       type: s.DataTypes.UUID,
       allowNull: false,
       references: {
@@ -20,7 +20,7 @@ export async function up(qi: Sequelize.QueryInterface, s: typeof Sequelize) : Pr
         key: 'id'
       }
     },
-    saver: {
+    saverId: {
       type: s.DataTypes.UUID,
       allowNull: false,
       references: {

@@ -1,21 +1,26 @@
 import type Sequelize from "sequelize";
 
 export async function up(qi: Sequelize.QueryInterface, s: typeof Sequelize) : Promise<void> {
-  await qi.createTable('moderation_event', {
+  await qi.createTable('deleted_messages', {
     id: {
-      primaryKey: true,
       type: s.DataTypes.UUID,
+      primaryKey: true,
+      allowNull: false,
       defaultValue: s.literal('uuid_generate_v4()')
     },
     createdAt: {
       type: s.DataTypes.TIME,
       allowNull: false
     },
+    updatedAt: {
+      type: s.DataTypes.TIME,
+      allowNull: false
+    },
     sentAt: {
       type: s.DataTypes.TIME,
-      allowNull: true
+      allowNull: false
     },
-    sender: {
+    senderId: {
       type: s.DataTypes.UUID,
       allowNull: false,
       references: {
@@ -23,7 +28,7 @@ export async function up(qi: Sequelize.QueryInterface, s: typeof Sequelize) : Pr
         key: 'id'
       }
     },
-    executioner: {
+    deleterId: {
       type: s.DataTypes.UUID,
       allowNull: false,
       references: {
@@ -31,21 +36,21 @@ export async function up(qi: Sequelize.QueryInterface, s: typeof Sequelize) : Pr
         key: 'id'
       }
     },
-    reason: {
-      type: s.DataTypes.STRING,
-      allowNull: true
+    channelId: {
+      type: s.DataTypes.UUID,
+      allowNull: false,
+      references: {
+        model: 'channels',
+        key: 'id'
+      }
     },
-    timeoutSeconds: {
-      type: s.DataTypes.INTEGER,
-      allowNull: true
-    },
-    isBanned: {
-      type: s.DataTypes.BOOLEAN,
+    message: {
+      type: s.DataTypes.TEXT,
       allowNull: false
     }
   })
 }
 
 export async function down(qi: Sequelize.QueryInterface, s: typeof Sequelize) : Promise<void> {
-  await qi.dropTable('moderation_event')
+  await qi.dropTable('deleted_messages')
 }

@@ -1,22 +1,8 @@
-import {Model} from 'sequelize'
-import {Column, CreatedAt, DeletedAt, IsUUID, PrimaryKey, Table, UpdatedAt} from "sequelize-typescript";
+import {Model, Column, CreatedAt, DeletedAt, IsUUID, PrimaryKey, Table, UpdatedAt, HasMany} from "sequelize-typescript";
+import ModerationEvent from "./moderation_event";
 
 @Table({tableName: 'users'})
-export default class User extends Model {
-    @Column
-    @PrimaryKey
-    @IsUUID(4)
-    id!: string
-
-    @CreatedAt
-    createdAt!: Date
-
-    @UpdatedAt
-    updatedAt!: Date
-
-    @DeletedAt
-    deletedAt!: Date
-
+export default class User extends Model<User> {
     @Column
     discordId!: number
 
@@ -28,4 +14,19 @@ export default class User extends Model {
 
     @Column
     githubUsername!: string
+
+    @Column
+    twitterUsername!: string
+
+    @Column
+    isAdmin!: boolean
+
+    @Column
+    isLegit!: boolean
+
+    @Column
+    isModerator!: boolean
+
+    @HasMany(() => ModerationEvent, 'subjectId')
+    moderationEvents!: ModerationEvent[]
 }

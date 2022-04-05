@@ -5,8 +5,8 @@ import { dirname, importx } from "@discordx/importer";
 import { Koa } from "@discordx/koa";
 
 import DiscourseConfiguration from './config.js';
-import { HACK_DIFFERENT_SERVER_ID } from './config.js'
 import Store from "./store";
+import Config from './config'
 
 DiscourseConfiguration.setRefresh(60);
 
@@ -17,11 +17,12 @@ export const client = new Client({
     intents: [
         Intents.FLAGS.GUILDS,
         Intents.FLAGS.GUILD_MEMBERS,
+        Intents.FLAGS.GUILD_BANS,
         Intents.FLAGS.GUILD_MESSAGES,
         Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
     ],
     // If you only want to use global commands only, comment this line
-    botGuilds: [ HACK_DIFFERENT_SERVER_ID ],
+    botGuilds: [ Config.HACK_DIFFERENT_SERVER_ID ],
 });
 
 client.once("ready", async () => {

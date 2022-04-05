@@ -1,7 +1,7 @@
 import type Sequelize from "sequelize";
 
 export async function up(qi: Sequelize.QueryInterface, s: typeof Sequelize) : Promise<void> {
-  await qi.createTable('redaction_event', {
+  await qi.createTable('redaction_events', {
     id: {
       type: s.DataTypes.UUID,
       primaryKey: true,
@@ -12,7 +12,11 @@ export async function up(qi: Sequelize.QueryInterface, s: typeof Sequelize) : Pr
       type: s.DataTypes.TIME,
       allowNull: false
     },
-    sender: {
+    occurredAt: {
+      type: s.DataTypes.TIME,
+      allowNull: false
+    },
+    senderId: {
       type: s.DataTypes.UUID,
       allowNull: false,
       references: {
@@ -21,8 +25,12 @@ export async function up(qi: Sequelize.QueryInterface, s: typeof Sequelize) : Pr
       }
     },
     channelId: {
-      type: s.DataTypes.BIGINT,
-      allowNull: false
+      type: s.DataTypes.UUID,
+      allowNull: false,
+      references: {
+        model: 'channels',
+        key: 'id'
+      }
     },
     message: {
       type: s.DataTypes.STRING,

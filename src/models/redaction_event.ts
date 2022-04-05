@@ -2,10 +2,10 @@ import {Model, BelongsTo, Column, CreatedAt, ForeignKey, IsUUID, PrimaryKey, Tab
 import User from "./user";
 import Channel from "./channel";
 
-@Table({tableName: 'deleted_messages'})
-export default class DeletedMessage extends Model<DeletedMessage> {
+@Table({tableName: 'redaction_events'})
+export default class RedactionEvent extends Model<RedactionEvent> {
     @Column
-    sentAt!:Date
+    occurredAt!: Date
 
     @Column
     @ForeignKey(() => User)
@@ -13,13 +13,6 @@ export default class DeletedMessage extends Model<DeletedMessage> {
 
     @BelongsTo(() => User, 'senderId')
     sender!: User
-
-    @Column
-    @ForeignKey(() => User)
-    deleterId!: string
-
-    @BelongsTo(() => User, 'deleterId')
-    deleter!: User
 
     @Column
     @ForeignKey(() => Channel)
@@ -30,4 +23,7 @@ export default class DeletedMessage extends Model<DeletedMessage> {
 
     @Column
     message!: string
+
+    @Column
+    triggerCondition!: string
 }
