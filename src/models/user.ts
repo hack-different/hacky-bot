@@ -1,4 +1,4 @@
-import {Model, Column, CreatedAt, DeletedAt, IsUUID, PrimaryKey, Table, UpdatedAt, HasMany} from "sequelize-typescript";
+import {Column, HasMany, Model, Table} from "sequelize-typescript";
 import ModerationEvent from "./moderation_event";
 
 @Table({tableName: 'users'})

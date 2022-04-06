@@ -1,6 +1,6 @@
 import type Sequelize from "sequelize";
 
-export async function up(qi: Sequelize.QueryInterface, s: typeof Sequelize) : Promise<void> {
+export async function up(qi: Sequelize.QueryInterface, s: typeof Sequelize): Promise<void> {
     await qi.createTable('users',
         {
             id: {
@@ -64,6 +64,6 @@ export async function up(qi: Sequelize.QueryInterface, s: typeof Sequelize) : Pr
         })
 }
 
-export async function down(qi: Sequelize.QueryInterface, s: typeof Sequelize) : Promise<void> {
+export async function down(qi: Sequelize.QueryInterface): Promise<void> {
     await qi.dropTable('users')
 }

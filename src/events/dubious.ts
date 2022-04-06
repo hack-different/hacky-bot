@@ -4,7 +4,7 @@
 import {ArgsOf, Client, Discord, On} from "discordx";
 
 @Discord()
-class DubiousFilter {
+export default class DubiousFilter {
     @On("messageCreate")
     private async onMessage([message]: ArgsOf<"messageCreate">, client: Client) {
         if (message.content.match(/jonathandata1/)) {

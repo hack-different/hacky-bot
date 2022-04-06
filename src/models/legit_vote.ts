@@ -1,6 +1,5 @@
-import {Model, BelongsTo, Column, CreatedAt, ForeignKey, IsUUID, PrimaryKey, Table, UpdatedAt} from "sequelize-typescript";
+import {BelongsTo, Column, ForeignKey, Model, Table} from "sequelize-typescript";
 import User from "./user";
-import Channel from "./channel";
 
 @Table({tableName: 'legit_votes'})
 export default class LegitVote extends Model<LegitVote> {

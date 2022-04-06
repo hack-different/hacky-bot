@@ -1,13 +1,26 @@
 import fetch from "node-fetch";
 
-interface Configuration {
-    embargoes: string[]
+interface Database {
+    username: string
+    password: string
+    database: string
+    host: string
+    dialect: string
 }
 
-export const HACK_DIFFERENT_SERVER_ID="779134930265309195";
+interface DatabaseFromEnvironment {
+    use_env_variable: boolean
+}
+
+interface Configuration {
+    embargoes: string[]
+    database : Database | DatabaseFromEnvironment
+}
+
+export const HACK_DIFFERENT_SERVER_ID = "779134930265309195";
 
 export default class DiscourseConfiguration {
-    private readonly _embargoes : RegExp[]
+    private readonly _embargoes: RegExp[]
 
     constructor(data: Configuration) {
         this._embargoes = []
@@ -17,7 +30,7 @@ export default class DiscourseConfiguration {
         }
     }
 
-    static async get() : Promise<DiscourseConfiguration> {
+    static async get(): Promise<DiscourseConfiguration> {
         if (typeof process.env.CONFIGURATION_URL === 'undefined') {
             throw "No configuration url, would be useless"
         }
@@ -27,7 +40,7 @@ export default class DiscourseConfiguration {
             const data = await result.json() as Configuration
             return new DiscourseConfiguration(data)
         }
-        return new DiscourseConfiguration({ embargoes: []})
+        return new DiscourseConfiguration({embargoes: []})
     }
 
     static refresh() {
@@ -39,7 +52,7 @@ export default class DiscourseConfiguration {
         this.refresh()
     }
 
-    isEmbargoed(message: string) : boolean {
+    isEmbargoed(message: string): boolean {
         for (const embargo in this._embargoes) {
             if (embargo.match(message)) {
                 return true

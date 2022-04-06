@@ -1,8 +1,8 @@
 import "reflect-metadata";
-import { Intents, Interaction, Message } from "discord.js";
-import { Client } from "discordx";
-import { dirname, importx } from "@discordx/importer";
-import { Koa } from "@discordx/koa";
+import {Intents, Interaction, Message} from "discord.js";
+import {Client} from "discordx";
+import {dirname, importx} from "@discordx/importer";
+import {Koa} from "@discordx/koa";
 
 import DiscourseConfiguration from './config.js';
 import Store from "./store";
@@ -22,11 +22,11 @@ export const client = new Client({
         Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
     ],
     // If you only want to use global commands only, comment this line
-    botGuilds: [ Config.HACK_DIFFERENT_SERVER_ID ],
+    botGuilds: [Config.HACK_DIFFERENT_SERVER_ID],
 });
 
 client.once("ready", async () => {
-    let store = new Store()
+    const store = new Store()
 
     await store.migrate()
 
@@ -35,8 +35,8 @@ client.once("ready", async () => {
 
     // init all application commands
     await client.initApplicationCommands({
-        guild: { log: true },
-        global: { log: true },
+        guild: {log: true},
+        global: {log: true},
     });
 
     // init permissions; enabled log to see changes

@@ -1,4 +1,4 @@
-import {Model, BelongsTo, Column, CreatedAt, ForeignKey, IsUUID, PrimaryKey, Table, UpdatedAt} from "sequelize-typescript";
+import {BelongsTo, Column, ForeignKey, Model, Table} from "sequelize-typescript";
 import User from "./user";
 import Channel from "./channel";
 

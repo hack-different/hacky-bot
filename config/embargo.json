@@ -1,6 +1,7 @@
 [
   {
     "pattern": "jonathandata1",
-    "reason": "Unreliable source of information"
+    "reason": "Unreliable source of information",
+    "delete": true
   }
 ]
